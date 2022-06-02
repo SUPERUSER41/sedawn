@@ -9,5 +9,5 @@ type Manufacturer {
 }
 
 type Query {
-  ok: Boolean!
+  manufacturers: [Manufacturer]!
 }
