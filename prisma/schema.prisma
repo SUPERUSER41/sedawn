@@ -18,22 +18,34 @@ model Manufacturer {
 }
 
 model Model {
-  id             Int           @id @default(autoincrement())
+  id             Int                 @id @default(autoincrement())
   name           String
-  isActive       Boolean       @default(true)
-  Manufacturer   Manufacturer? @relation(fields: [manufacturerId], references: [id])
+  isActive       Boolean             @default(true)
+  Manufacturer   Manufacturer        @relation(fields: [manufacturerId], references: [id])
   manufacturerId Int
   modelYears     ModelYear[]
+  transmissions  ModelTransmission[]
 }
 
 model ModelYear {
-  id      Int    @id @default(autoincrement())
+  id      Int   @id @default(autoincrement())
   year    Int
-  Model   Model? @relation(fields: [modelId], references: [id])
+  Model   Model @relation(fields: [modelId], references: [id])
   modelId Int
 }
 
 model Transmission {
-  id   Int    @id @default(autoincrement())
-  name String
+  id     Int                 @id @default(autoincrement())
+  name   String
+  models ModelTransmission[]
+}
+
+model ModelTransmission {
+  modelId        Int
+  transmissionId Int
+
+  Model        Model        @relation(fields: [modelId], references: [id])
+  Transmission Transmission @relation(fields: [transmissionId], references: [id])
+
+  @@id([modelId, transmissionId])
 }
