@@ -1,8 +1,9 @@
 import { makeSchema } from 'nexus';
 import { join } from 'path';
+import { Manufacturer } from './types/manufacturer';
 
 export const schema = makeSchema({
-  types: [],
+  types: [Manufacturer],
   outputs: {
     typegen: join(
       process.cwd(),
