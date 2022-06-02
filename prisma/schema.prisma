@@ -32,3 +32,8 @@ model ModelYear {
   Model   Model? @relation(fields: [modelId], references: [id])
   modelId Int
 }
+
+model Transmission {
+  id   Int    @id @default(autoincrement())
+  name String
+}
