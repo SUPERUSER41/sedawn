@@ -25,6 +25,7 @@ model Model {
   manufacturerId Int
   modelYears     ModelYear[]
   transmissions  ModelTransmission[]
+  colors         ModelColor[]
 }
 
 model ModelYear {
@@ -51,7 +52,21 @@ model ModelTransmission {
 }
 
 model Color {
-  id   Int    @id @default(autoincrement())
-  code String
-  name String
+  id     Int          @id @default(autoincrement())
+  code   String
+  name   String
+  models ModelColor[]
+}
+
+model ModelColor {
+  modelId Int
+  colorId Int
+
+  Model Model @relation(fields: [modelId], references: [id])
+  Color Color @relation(fields: [colorId], references: [id])
+
+  activeStart DateTime @unique
+  activeEnd   DateTime @unique
+
+  @@id([modelId, colorId])
 }
