@@ -23,4 +23,12 @@ model Model {
   isActive       Boolean       @default(true)
   Manufacturer   Manufacturer? @relation(fields: [manufacturerId], references: [id])
   manufacturerId Int
+  modelYear      ModelYear[]
+}
+
+model ModelYear {
+  id      Int    @id @default(autoincrement())
+  year    Int
+  Model   Model? @relation(fields: [modelId], references: [id])
+  modelId Int
 }
