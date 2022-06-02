@@ -14,7 +14,7 @@ model Manufacturer {
   id       Int     @id @default(autoincrement())
   name     String
   isActive Boolean @default(true)
-  model    Model[]
+  models   Model[]
 }
 
 model Model {
@@ -23,7 +23,7 @@ model Model {
   isActive       Boolean       @default(true)
   Manufacturer   Manufacturer? @relation(fields: [manufacturerId], references: [id])
   manufacturerId Int
-  modelYear      ModelYear[]
+  modelYears     ModelYear[]
 }
 
 model ModelYear {
