@@ -14,4 +14,13 @@ model Manufacturer {
   id       Int     @id @default(autoincrement())
   name     String
   isActive Boolean @default(true)
+  model    Model[]
+}
+
+model Model {
+  id             Int           @id @default(autoincrement())
+  name           String
+  isActive       Boolean       @default(true)
+  Manufacturer   Manufacturer? @relation(fields: [manufacturerId], references: [id])
+  manufacturerId Int
 }
