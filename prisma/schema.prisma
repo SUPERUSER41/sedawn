@@ -11,10 +11,11 @@ datasource db {
 }
 
 model Manufacturer {
-  id       Int     @id @default(autoincrement())
+  id       Int       @id @default(autoincrement())
   name     String
-  isActive Boolean @default(true)
+  isActive Boolean   @default(true)
   models   Model[]
+  vehicles Vehicle[]
 }
 
 model Model {
@@ -29,16 +30,18 @@ model Model {
 }
 
 model ModelYear {
-  id      Int   @id @default(autoincrement())
-  year    Int
-  Model   Model @relation(fields: [modelId], references: [id])
-  modelId Int
+  id       Int       @id @default(autoincrement())
+  year     Int
+  Model    Model     @relation(fields: [modelId], references: [id])
+  modelId  Int
+  vehicles Vehicle[]
 }
 
 model Transmission {
-  id     Int                 @id @default(autoincrement())
-  name   String
-  models ModelTransmission[]
+  id       Int                 @id @default(autoincrement())
+  name     String
+  models   ModelTransmission[]
+  vehicles Vehicle[]
 }
 
 model ModelTransmission {
@@ -52,10 +55,11 @@ model ModelTransmission {
 }
 
 model Color {
-  id     Int          @id @default(autoincrement())
-  code   String
-  name   String
-  models ModelColor[]
+  id       Int          @id @default(autoincrement())
+  code     String
+  name     String
+  models   ModelColor[]
+  vehicles Vehicle[]
 }
 
 model ModelColor {
@@ -69,4 +73,19 @@ model ModelColor {
   activeEnd   DateTime @unique
 
   @@id([modelId, colorId])
+}
+
+model Vehicle {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Manufacturer   Manufacturer @relation(fields: [manufacturerId], references: [id])
+  manufacturerId Int
+  ModelYear      ModelYear    @relation(fields: [modelYearId], references: [id])
+  modelYearId    Int
+  Transmission   Transmission @relation(fields: [transmissionId], references: [id])
+  transmissionId Int
+  Color          Color?       @relation(fields: [colorId], references: [id])
+  colorId        Int?
 }
