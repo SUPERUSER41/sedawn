@@ -10,6 +10,7 @@ const server = new ApolloServer({
   schema,
   resolvers,
   context,
+  csrfPrevention: true,
 });
 
 const start = server.start();
